@@ -1,6 +1,7 @@
 import java.util.*;
 import java.io.*;
 import java.lang.*; 
+import java.time.*;
 
 public class GerenciadorDeTarefas{
    private Tarefa tarefa;
@@ -30,12 +31,17 @@ public class GerenciadorDeTarefas{
       setTarefa(novaTarefa);
       tarefasPendentes.add(getTarefa());
    }
-   /*concluirTarefa(Tarefa t){
-        
-   }*/
-   public void exibirTarefaPendentes(){ 
-      for (int i = 0; i < tarefasPendentes.size(); i++){
-         System.out.println(tarefasPendentes.get(i));
+   
+   public void concluirTarefa(){
+      exibirTarefasPendentes();
+      //TODO
+      
+   }
+   
+   public void exibirTarefasPendentes(){
+      System.out.println("Lista de tarefas pendentes: ");
+      for (int dadosDaTarefa = 0; dadosDaTarefa < tarefasPendentes.size(); dadosDaTarefa++){
+         System.out.println(tarefasPendentes.get(dadosDaTarefa));
       }
    }
 

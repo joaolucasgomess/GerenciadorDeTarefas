@@ -1,9 +1,12 @@
 import java.util.*;
 import java.lang.*;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+
 public class Tarefa{
    private String titulo;
    private String descricao;
-   private String dataCriacao;
+   private LocalDate dataCriacao;
    private String dataConclusao;
    private boolean status;
    
@@ -13,8 +16,9 @@ public class Tarefa{
       this.titulo = leia.nextLine();
       System.out.println("Digite a descricao de sua nova tarefa: ");
       this.descricao = leia.nextLine();
-      System.out.println("Digite a data de criação de sua nova tarefa: ");
-      this.dataCriacao = leia.next();
+      //System.out.println("Digite a data de criação de sua nova tarefa: ");
+      //this.dataCriacao = leia.next();
+      this.dataCriacao = LocalDate.now();
       this.status = false;
    }
 
@@ -26,7 +30,7 @@ public class Tarefa{
       return descricao;
    }
    
-   public String getDataCriacao(){
+   public LocalDate getDataCriacao(){
       return dataCriacao;
    }
    
@@ -45,7 +49,7 @@ public class Tarefa{
       this.descricao = descricao;
    }
    
-   public void setDataCriacao(String dataCriacao){
+   public void setDataCriacao(LocalDate dataCriacao){
       this.dataCriacao = dataCriacao;
    }
    
@@ -58,8 +62,14 @@ public class Tarefa{
    } 
 
    public String toString(){
-      return("\nTarefa: " + this.getTitulo() + "\nDescricao: "+ this.getDescricao() + "\nData de Criacao: " + this.getDataCriacao());
+      return("\nTarefa: " + this.getTitulo() + "\nDescricao: "+ this.getDescricao() + "\nData de Criacao: " + formatarData(getDataCriacao()));
 
+   }
+   
+   public String formatarData(LocalDate data){
+      DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+      String dataFormatada = formatacao.format(data);
+      return dataFormatada;
    }
 
 }

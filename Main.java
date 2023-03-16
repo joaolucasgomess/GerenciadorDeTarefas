@@ -18,12 +18,13 @@ public class Main{
                Tarefa novaTarefa = new Tarefa();
                gerenciadorDeTarefas.adicionarTarefa(novaTarefa);
                break;
-            /*case 2: */
+               
+            case 2:
+               gerenciadorDeTarefas.concluirTarefa();
+               break;
             
             case 3:
-               gerenciadorDeTarefas.exibirTarefaPendentes();
-
-               
+               gerenciadorDeTarefas.exibirTarefasPendentes();
                break;
 
 
