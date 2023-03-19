@@ -1,24 +1,18 @@
 import java.util.*;
-import java.lang.*;
-import java.time.*;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Tarefa{
    private String titulo;
    private String descricao;
    private LocalDate dataCriacao;
-   private String dataConclusao;
+   private LocalDate dataConclusao;
    private boolean status;
    
-   public Tarefa(){
-      Scanner leia = new Scanner(System.in);
-      System.out.println("Digite o titulo de sua nova tarefa: ");
-      this.titulo = leia.nextLine();
-      System.out.println("Digite a descricao de sua nova tarefa: ");
-      this.descricao = leia.nextLine();
-      //System.out.println("Digite a data de criação de sua nova tarefa: ");
-      //this.dataCriacao = leia.next();
-      this.dataCriacao = LocalDate.now();
+   public Tarefa(String titulo, String descricao, LocalDate dataCriacao){
+      this.titulo = titulo;
+      this.descricao = descricao;
+      this.dataCriacao = dataCriacao;
       this.status = false;
    }
 
@@ -34,7 +28,7 @@ public class Tarefa{
       return dataCriacao;
    }
    
-   public String getDataConclusao(){
+   public LocalDate getDataConclusao(){
       return dataConclusao;
    }
    
@@ -53,7 +47,7 @@ public class Tarefa{
       this.dataCriacao = dataCriacao;
    }
    
-   public void setTDataConclusao(String dataConclusao){
+   public void setDataConclusao(LocalDate dataConclusao){
       this.dataConclusao = dataConclusao;
    }
    

@@ -15,8 +15,7 @@ public class Main{
          
          switch (opcao){
             case 1:
-               Tarefa novaTarefa = new Tarefa();
-               gerenciadorDeTarefas.adicionarTarefa(novaTarefa);
+               gerenciadorDeTarefas.adicionarTarefa();
                break;
                
             case 2:
@@ -26,12 +25,13 @@ public class Main{
             case 3:
                gerenciadorDeTarefas.exibirTarefasPendentes();
                break;
+               
+            case 4:
+               gerenciadorDeTarefas.exibirTarefasConcluidas();
+               break;               
+               
 
-
-
-            /* case 4:
-
-            default:
+            /*default:
                System.out.println("Opção invalida, escolha outra.");*/
          }
 
