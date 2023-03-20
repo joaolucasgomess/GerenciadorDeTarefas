@@ -18,9 +18,9 @@ public class GerenciadorDeArquivos{
             + tarefa.getIdTarefa()
          );
          bw.newLine();
-         System.out.println("Conteúdo adicionado com sucesso ao arquivo.");
+         System.out.println("Conteudo adicionado com sucesso ao arquivo.");
       }catch (IOException e) {
-         System.out.println("Ocorreu um erro ao tentar adicionar o conteúdo ao arquivo.");
+         System.out.println("Ocorreu um erro ao tentar adicionar o conteudo ao arquivo.");
          e.printStackTrace();
       }
    }
