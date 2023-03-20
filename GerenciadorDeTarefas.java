@@ -9,6 +9,8 @@ public class GerenciadorDeTarefas{
    public List<Tarefa> getTarefasPendentes(){
       return tarefasPendentes;
    }
+   
+   
    public void setTarefasPendentes(List<Tarefa> tarefasPendentes){
       this.tarefasPendentes = tarefasPendentes;
    }
@@ -21,7 +23,6 @@ public class GerenciadorDeTarefas{
       this.tarefasConcluidas = tarefasConcluidas;
    }
     /*GerenciadorDeTarefas(){
-
     }*/
 
    public void adicionarTarefa(){
@@ -31,8 +32,9 @@ public class GerenciadorDeTarefas{
       System.out.println("Digite a descricao de sua nova tarefa: ");
       String descricaoTarefa = leia.nextLine();
       LocalDateTime dataCriacaoTarefa = LocalDateTime.now();
+      Tarefa.addNumeroTarefa();
       
-      Tarefa novaTarefa = new Tarefa(tituloTarefa, descricaoTarefa, dataCriacaoTarefa);
+      Tarefa novaTarefa = new Tarefa(tituloTarefa, descricaoTarefa, dataCriacaoTarefa, Tarefa.getNumeroTarefa());
       this.tarefasPendentes.add(novaTarefa);
       GerenciadorDeArquivos.adicionarAoArquivo(novaTarefa, "tarefas.jdm");
    }
@@ -43,11 +45,16 @@ public class GerenciadorDeTarefas{
       System.out.println("Qual tarefa deseja concluir?");
       int tarefaEscolhida = (leia.nextInt() - 1);
       
-      Tarefa novaTarefaConcluida = this.tarefasPendentes.get(tarefaEscolhida);
-      novaTarefaConcluida.setStatus(true);
-      novaTarefaConcluida.setDataConclusao(LocalDateTime.now());
-      this.tarefasConcluidas.add(novaTarefaConcluida);
-      this.tarefasPendentes.remove(tarefaEscolhida);
+      if(tarefaEscolhida < Tarefa.getNumeroTarefa()){
+         Tarefa novaTarefaConcluida = this.tarefasPendentes.get(tarefaEscolhida);
+         novaTarefaConcluida.setStatus(true);
+         novaTarefaConcluida.setDataConclusao(LocalDateTime.now());
+         this.tarefasConcluidas.add(novaTarefaConcluida);
+         this.tarefasPendentes.remove(tarefaEscolhida);
+         Tarefa.removeNumeroTarefa();
+      }else{
+         System.out.println("Tarefa invalida.");
+      }
    }
    
    public void exibirTarefas(List<Tarefa> listaDeTarefas){

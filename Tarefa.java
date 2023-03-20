@@ -9,13 +9,28 @@ public class Tarefa{
    private LocalDateTime dataConclusao;
    private boolean status;
    private UUID idTarefa;
+   private static int numeroTarefa = 0;
    
-   public Tarefa(String titulo, String descricao, LocalDateTime dataCriacao){
+   public static void addNumeroTarefa(){
+      numeroTarefa++;
+   }
+   
+   public static void removeNumeroTarefa(){
+      numeroTarefa--;
+   }
+   
+   public static int getNumeroTarefa(){
+      return numeroTarefa;
+   }
+
+   
+   public Tarefa(String titulo, String descricao, LocalDateTime dataCriacao, int numeroTarefa){
       this.titulo = titulo;
       this.descricao = descricao;
       this.dataCriacao = dataCriacao;
       this.status = false;
       this.idTarefa = UUID.randomUUID();
+      this.numeroTarefa = numeroTarefa;
    }
 
    public String getTitulo(){
@@ -71,18 +86,20 @@ public class Tarefa{
          return("\nTarefa: " + this.titulo
             + "\nDescricao: "+ this.descricao
             + "\nData de Criacao: " + formatarDataEHora(this.dataCriacao)
+            + "\nNumero da tarefa: " + this.numeroTarefa
          );
       }else{
          return("\nTarefa: " + this.titulo
             + "\nDescricao: " + this.descricao
             + "\nData de Criacao: " + formatarDataEHora(this.dataCriacao)
             + "\nData de Conclusao: " + formatarDataEHora(this.dataConclusao)
+            + "\nNumero da tarefa: " + this.numeroTarefa
          );
       }
    }
    
    public String formatarDataEHora(LocalDateTime data){
-      DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+      DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm");
       String dataFormatada = formatacao.format(data);
       return dataFormatada;
    }

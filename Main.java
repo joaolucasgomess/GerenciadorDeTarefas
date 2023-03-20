@@ -9,7 +9,7 @@ public class Main{
          System.out.println("1 - Criar nova tarefa");
          System.out.println("2 - Concluir tarefa");
          System.out.println("3 - Exibir tarefas pendentes");
-         System.out.println("4 - Exibir tarefas concluÃ­das");
+         System.out.println("4 - Exibir tarefas concluídas");
          Scanner leia = new Scanner(System.in);
          int opcao = leia.nextInt();
          
@@ -32,7 +32,7 @@ public class Main{
                
 
             /*default:
-               System.out.println("OpÃ§Ã£o invalida, escolha outra.");*/
+               System.out.println("Opção invalida, escolha outra.");*/
          }
 
       }
