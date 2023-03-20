@@ -28,13 +28,11 @@ public class Main{
                
             case 4:
                gerenciadorDeTarefas.exibirTarefasConcluidas();
-               break;               
+               break;              
                
-
             /*default:
                System.out.println("Opção invalida, escolha outra.");*/
          }
-
       }
    }
 }
