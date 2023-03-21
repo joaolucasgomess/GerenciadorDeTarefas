@@ -2,8 +2,15 @@ import java.util.*;
 import java.lang.*;
 
 public class Main{
+
    public static void main (String[] args){
+
+
       GerenciadorDeTarefas gerenciadorDeTarefas = new GerenciadorDeTarefas();
+         System.out.println("\nDigite seu usuario: ");
+         Scanner leia = new Scanner(System.in);
+         int usuario = leia.nextInt();
+
       while(true){
          System.out.println("\nOpcoes: ");
          System.out.println("1 - Criar nova tarefa");
@@ -28,13 +35,11 @@ public class Main{
                
             case 4:
                gerenciadorDeTarefas.exibirTarefasConcluidas();
-               break;               
+               break;              
                
-
             /*default:
                System.out.println("Opção invalida, escolha outra.");*/
          }
-
       }
    }
 }

@@ -86,5 +86,15 @@ public class Tarefa{
       String dataFormatada = formatacao.format(data);
       return dataFormatada;
    }
-
+   
+   /*public String arrayAtributos(){
+      String dataCriacaoString = dataCriacao.toString();
+      String dataConclusaoString = dataConclusao.toString();
+      String statusString = String.valueOf(this.status);
+      String idTarefaString = idTarefa.toString();
+      
+      String arrayAtributos = {this.titulo, this.descricao, dataCriacaoString, dataConclusaoString, statusString, idTarefaString};
+      
+      return arrayAtributos;
+   }*/
 }
