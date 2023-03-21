@@ -11,16 +11,20 @@ public class Tarefa{
    private UUID idTarefa;
    private static int numeroTarefa = 0;
    
-   public static void addNumeroTarefa(){
-      numeroTarefa++;
+   public static void addNumeroTarefa(int valor){
+      numeroTarefa = numeroTarefa + valor;
    }
    
-   public static void removeNumeroTarefa(){
-      numeroTarefa--;
+   public static void removeNumeroTarefa(int valor){
+      numeroTarefa = numeroTarefa - valor;
    }
    
    public static int getNumeroTarefa(){
-      return numeroTarefa;
+      return numeroTarefa - 1;
+   }
+   
+   public static void resetNumeroTarefa(){
+      numeroTarefa = 1;
    }
 
    
@@ -83,19 +87,19 @@ public class Tarefa{
 @Override
    public String toString(){
       if(this.dataConclusao == null){
-         return("\nTarefa: " + this.titulo
-            + "\nDescricao: "+ this.descricao
-            + "\nData de Criacao: " + formatarDataEHora(this.dataCriacao)
-            + "\nNumero da tarefa: " + this.numeroTarefa
-         );
+            return("\nTarefa: " + this.titulo
+               + "\nDescricao: "+ this.descricao
+               + "\nData de Criacao: " + formatarDataEHora(this.dataCriacao)
+               + "\nNumero da tarefa: " + this.numeroTarefa
+            );
+            
       }else{
          return("\nTarefa: " + this.titulo
-            + "\nDescricao: " + this.descricao
-            + "\nData de Criacao: " + formatarDataEHora(this.dataCriacao)
-            + "\nData de Conclusao: " + formatarDataEHora(this.dataConclusao)
-            + "\nNumero da tarefa: " + this.numeroTarefa
-         );
-      }
+               + "\nDescricao: "+ this.descricao
+               + "\nData de Criacao: " + formatarDataEHora(this.dataCriacao)
+               + "\nData de Conclusao: " + formatarDataEHora(this.dataConclusao)
+            );
+         }
    }
    
    public String formatarDataEHora(LocalDateTime data){

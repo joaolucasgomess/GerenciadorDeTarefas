@@ -32,7 +32,6 @@ public class GerenciadorDeTarefas{
       System.out.println("Digite a descricao de sua nova tarefa: ");
       String descricaoTarefa = leia.nextLine();
       LocalDateTime dataCriacaoTarefa = LocalDateTime.now();
-      Tarefa.addNumeroTarefa();
       
       Tarefa novaTarefa = new Tarefa(tituloTarefa, descricaoTarefa, dataCriacaoTarefa, Tarefa.getNumeroTarefa());
       this.tarefasPendentes.add(novaTarefa);
@@ -40,36 +39,51 @@ public class GerenciadorDeTarefas{
    }
    
    public void concluirTarefa(){
+   if(tarefasPendentes.size() == 0){
+         System.out.println("\nNao existem tarefas pendentes.");
+      }else{
       exibirTarefasPendentes();
       Scanner leia = new Scanner(System.in);
-      System.out.println("Qual tarefa deseja concluir?");
+      System.out.println("\nQual tarefa deseja concluir?");
       int tarefaEscolhida = (leia.nextInt() - 1);
       
-      if(tarefaEscolhida < Tarefa.getNumeroTarefa()){
+      if(tarefaEscolhida > Tarefa.getNumeroTarefa() - 1){
+         System.out.println("\nTarefa invalida.");
+      }else{
          Tarefa novaTarefaConcluida = this.tarefasPendentes.get(tarefaEscolhida);
          novaTarefaConcluida.setStatus(true);
          novaTarefaConcluida.setDataConclusao(LocalDateTime.now());
          this.tarefasConcluidas.add(novaTarefaConcluida);
          this.tarefasPendentes.remove(tarefaEscolhida);
-         Tarefa.removeNumeroTarefa();
-      }else{
-         System.out.println("Tarefa invalida.");
+         System.out.println("Tarefa " + (tarefaEscolhida + 1) + " removida com sucesso.");
       }
+    }
    }
    
    public void exibirTarefas(List<Tarefa> listaDeTarefas){
+      Tarefa.resetNumeroTarefa();
       for(Tarefa dadosDaTarefa : listaDeTarefas){
          System.out.println(dadosDaTarefa);
+         Tarefa.addNumeroTarefa(2);
+         Tarefa.removeNumeroTarefa(1);
       }
    }
    
    public void exibirTarefasPendentes(){
-      System.out.println("Lista de tarefas pendentes: ");
-      exibirTarefas(this.tarefasPendentes);
+      if(tarefasPendentes.size() == 0){
+         System.out.println("\nNao existem tarefas pendentes.");
+      }else{
+         System.out.println("Lista de tarefas pendentes: ");
+         exibirTarefas(this.tarefasPendentes);
+      }
    }
 
    public void exibirTarefasConcluidas(){
-      System.out.println("Lista de tarefas concluidas: ");
-      exibirTarefas(this.tarefasConcluidas);
+      if(tarefasConcluidas.size() == 0){
+         System.out.println("\nNao existem tarefas concluidas.");
+      }else{
+         System.out.println("Lista de tarefas concluidas: ");
+         exibirTarefas(this.tarefasConcluidas);
+     }
    }
 }
