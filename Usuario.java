@@ -7,13 +7,10 @@ public class Usuario {
   }
 
     public String getNome() {
-        return Nome;
+        return nome;
  
   }
 
-// SOLICITAR O NOME DO USUARIO NA HORA QUE LOGAR
-// FAZER A VALIDACAO DO USUARIO, CASO JÁ EXISTA CARREGAR AS TAREFAS DELE
-// COLOCAR O USUARIO DENTRO DA TAREFA PARA PUXAR FUTURAMENTE 
-// 
+
 
 }

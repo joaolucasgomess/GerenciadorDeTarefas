@@ -20,15 +20,12 @@ public class GerenciadorDeTarefas{
    public void setTarefasConluidas(List<Tarefa> tarefasConcluidas){
       this.tarefasConcluidas = tarefasConcluidas;
    }
-    /*GerenciadorDeTarefas(){
-
-    }*/
 
    public void adicionarTarefa(){
       Scanner leia = new Scanner(System.in);
-      System.out.println("Digite o titulo de sua nova tarefa: ");
+      System.out.println("Digite o titulo da sua nova tarefa: ");
       String tituloTarefa = leia.nextLine();
-      System.out.println("Digite a descricao de sua nova tarefa: ");
+      System.out.println("Digite a descricao da sua nova tarefa: ");
       String descricaoTarefa = leia.nextLine();
       LocalDateTime dataCriacaoTarefa = LocalDateTime.now();
       
@@ -48,7 +45,7 @@ public class GerenciadorDeTarefas{
       novaTarefaConcluida.setDataConclusao(LocalDateTime.now());
       this.tarefasConcluidas.add(novaTarefaConcluida);
       this.tarefasPendentes.remove(tarefaEscolhida);
-      GerenciadorDeArquivos.atualizarArquivo(novaTarefaConcluida, "tarefas.jdm");
+      //GerenciadorDeArquivos.atualizarArquivo(novaTarefaConcluida, "tarefas.jdm");
    }
    
    public void exibirTarefas(List<Tarefa> listaDeTarefas){
@@ -66,4 +63,9 @@ public class GerenciadorDeTarefas{
       System.out.println("Lista de tarefas concluidas: ");
       exibirTarefas(this.tarefasConcluidas);
    }
+
+  
 }
+
+
+

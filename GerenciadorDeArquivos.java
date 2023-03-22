@@ -27,7 +27,7 @@ public class GerenciadorDeArquivos{
       }
    }
    
-   public static void atualizarArquivo(Tarefa tarefa, String nomeDoArquivo){
+   /*public static void atualizarArquivo(Tarefa tarefa, String nomeDoArquivo){
       try{
          FileReader arquivo = new FileReader(nomeDoArquivo);
          BufferedReader dadosDoArquivo = new BufferedReader(arquivo);
@@ -37,7 +37,7 @@ public class GerenciadorDeArquivos{
          while(linha != null){
             if(linha.contains(tarefa.getTitulo())){
                String[] dadosDaLinha = linha.split(";");
-               dadosDaLinha[3] = tarefa.getDataConclusa().toString();
+               dadosDaLinha[3] = tarefa.getDataConclusao().toString();
                dadosDaLinha[4] = tarefa.getStatus().toString();
                adicionarAoArquivo(tarefa, nomeDoArquivo);
                //TODO

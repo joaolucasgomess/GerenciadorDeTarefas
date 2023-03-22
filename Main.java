@@ -5,14 +5,15 @@ public class Main{
 
    public static void main (String[] args){
 
-
       GerenciadorDeTarefas gerenciadorDeTarefas = new GerenciadorDeTarefas();
-         System.out.println("\nDigite seu usuario: ");
-         Scanner leia = new Scanner(System.in);
-         int usuario = leia.nextInt();
+
+      GerenciadorDeUsuarios gerenciadorDeUsuarios = new GerenciadorDeUsuarios();
+
+      gerenciadorDeUsuarios.cadastrarUsuario();
 
       while(true){
-         System.out.println("\nOpcoes: ");
+
+         System.out.println("Opcoes: ");
          System.out.println("1 - Criar nova tarefa");
          System.out.println("2 - Concluir tarefa");
          System.out.println("3 - Exibir tarefas pendentes");
@@ -37,8 +38,8 @@ public class Main{
                gerenciadorDeTarefas.exibirTarefasConcluidas();
                break;              
                
-            /*default:
-               System.out.println("Opção invalida, escolha outra.");*/
+            default:
+               System.out.println("Opcao invalida, escolha outra.");
          }
       }
    }
