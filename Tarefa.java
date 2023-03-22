@@ -87,6 +87,26 @@ public class Tarefa{
       return dataFormatada;
    }
    
+   public String formatarAtributosParaArquivo(){
+      String atributosFomatados = this.titulo + ";"
+            + this.descricao + ";"
+            + this.dataCriacao + ";"
+            + this.dataConclusao + ";"
+            + this.status + ";"
+            + this.idTarefa;
+      return atributosFomatados;
+   }
+   
+   public static Tarefa parseLinhaDoArquivo(String linha) {
+      String[] atributos = linha.split(";");
+      String titulo = String.parse(atributos[0]);
+      String descricao = String.parse(atributos[1]);
+      LocalDateTime dataCriacao = String.parse(atributos[2]);
+      LocalDateTime dataConclusao = String.parse(atributos[3]);
+      boolean status = String.parse(atributos[4]);
+      UUID idTarefa = String.parse(atributos[5]);
+}
+   
    /*public String arrayAtributos(){
       String dataCriacaoString = dataCriacao.toString();
       String dataConclusaoString = dataConclusao.toString();
