@@ -6,7 +6,7 @@ public class Tarefa{
    private String titulo;
    private String descricao;
    private LocalDateTime dataCriacao;
-   private LocalDateTime dataConclusao;
+   //private LocalDateTime dataConclusao;
    private boolean status;
    private UUID idTarefa;
    
@@ -14,6 +14,15 @@ public class Tarefa{
       this.titulo = titulo;
       this.descricao = descricao;
       this.dataCriacao = dataCriacao;
+      this.status = false;
+      this.idTarefa = UUID.randomUUID();
+   }
+   
+   public Tarefa(String titulo, String descricao, LocalDateTime dataCriacao,  boolean status, UUID idTarefa){
+      this.titulo = titulo;
+      this.descricao = descricao;
+      this.dataCriacao = dataCriacao;
+      //this.dataConclusao = dataConclusao;
       this.status = false;
       this.idTarefa = UUID.randomUUID();
    }
@@ -30,9 +39,9 @@ public class Tarefa{
       return dataCriacao;
    }
    
-   public LocalDateTime getDataConclusao(){
+   /*public LocalDateTime getDataConclusao(){
       return dataConclusao;
-   }
+   }*/
    
     public boolean getStatus(){
       return status;
@@ -41,6 +50,7 @@ public class Tarefa{
     public void setTitulo(String titulo){
       this.titulo = titulo;
    }
+   
     public void setDescricao(String descricao){
       this.descricao = descricao;
    }
@@ -49,9 +59,9 @@ public class Tarefa{
       this.dataCriacao = dataCriacao;
    }
    
-   public void setDataConclusao(LocalDateTime dataConclusao){
+   /*public void setDataConclusao(LocalDateTime dataConclusao){
       this.dataConclusao = dataConclusao;
-   }
+   }*/
    
    public void setStatus(boolean status){
       this.status = status;
@@ -67,7 +77,7 @@ public class Tarefa{
 
 @Override
    public String toString(){
-      if(this.dataConclusao == null){
+      if(this.dataCriacao != null){
          return("\nTarefa: " + this.titulo
             + "\nDescricao: "+ this.descricao
             + "\nData de Criacao: " + formatarDataEHora(this.dataCriacao)
@@ -76,7 +86,7 @@ public class Tarefa{
          return("\nTarefa: " + this.titulo
             + "\nDescricao: " + this.descricao
             + "\nData de Criacao: " + formatarDataEHora(this.dataCriacao)
-            + "\nData de Conclusao: " + formatarDataEHora(this.dataConclusao)
+            /*+ "\nData de Conclusao: " + formatarDataEHora(this.dataConclusao)*/
          );
       }
    }
@@ -88,25 +98,27 @@ public class Tarefa{
    }
    
    public String formatarAtributosParaArquivo(){
-      String atributosFomatados = this.titulo + ";"
+      String atributosFormatados = this.titulo + ";"
             + this.descricao + ";"
             + this.dataCriacao + ";"
-            + this.dataConclusao + ";"
+            /*+ this.dataConclusao + ";"*/
             + this.status + ";"
             + this.idTarefa;
-      return atributosFomatados;
+      return atributosFormatados;
    }
-   
+
    public static Tarefa parseLinhaDoArquivo(String linha) {
       String[] atributos = linha.split(";");
-      String titulo = String.parse(atributos[0]);
-      String descricao = String.parse(atributos[1]);
-      LocalDateTime dataCriacao = String.parse(atributos[2]);
-      LocalDateTime dataConclusao = String.parse(atributos[3]);
-      boolean status = String.parse(atributos[4]);
-      UUID idTarefa = String.parse(atributos[5]);
+      String titulo = atributos[0];
+      String descricao = atributos[1];
+      LocalDateTime dataCriacao = LocalDateTime.parse(atributos[2]);
+      //LocalDateTime dataConclusao = LocalDateTime.parse(atributos[3]);
+      boolean status = Boolean.parseBoolean(atributos[3]);
+      UUID idTarefa = UUID.fromString(atributos[4]);
+      return new Tarefa(titulo, descricao, dataCriacao, status, idTarefa);
+      /*, dataConclusao*/
+   }
 }
-   
    /*public String arrayAtributos(){
       String dataCriacaoString = dataCriacao.toString();
       String dataConclusaoString = dataConclusao.toString();
@@ -117,4 +129,3 @@ public class Tarefa{
       
       return arrayAtributos;
    }*/
-}
