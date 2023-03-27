@@ -28,14 +28,17 @@ public class GerenciadorDeTarefas{
    }
    
    public void verificarUsuario(){
+      boolean usuarioExiste = false;
       for(Usuario usuario : this.listaDeUsuarios){
          if(usuario.getNome().equals(usuarioLogado.getNome())){
+            usuarioExiste = true;
             listaDeTarefas = GerenciadorDeArquivos.carregarDoArquivoTarefa(listaDeTarefas, "Usuarios\\Tarefas\\" + usuarioLogado.getNome() + ".jdm");
             break;
-         } 
+         }
+      }if(!usuarioExiste){
+         listaDeUsuarios.add(usuarioLogado);
+         GerenciadorDeArquivos.atualizarArquivoUsuario(listaDeUsuarios, "Usuarios\\usuariosCadastrados.jdm");
       }
-      listaDeUsuarios.add(usuarioLogado);
-      GerenciadorDeArquivos.atualizarArquivoUsuario(listaDeUsuarios, "Usuarios\\usuariosCadastrados.jdm");
    }
     
    public void gerarIndiceTarefa(Tarefa tarefa){
