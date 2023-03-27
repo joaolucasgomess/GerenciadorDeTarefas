@@ -48,7 +48,7 @@ public class GerenciadorDeTarefas{
       //novaTarefaConcluida.setDataConclusao(LocalDateTime.now());
       this.tarefasConcluidas.add(novaTarefaConcluida);
       this.tarefasPendentes.remove(tarefaEscolhida);
-      GerenciadorDeArquivos.atualizarArquivo(novaTarefaConcluida, "tarefas.jdm");
+      GerenciadorDeArquivos.atualizarArquivo(tarefasPendentes, tarefasConcluidas, "tarefas.jdm");
    }
    
    public void exibirTarefas(List<Tarefa> listaDeTarefas){
