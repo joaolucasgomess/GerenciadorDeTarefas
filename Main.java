@@ -1,14 +1,14 @@
 import java.util.*;
-import java.lang.*;
 
 public class Main{
    public static void main (String[] args){
       Scanner leia = new Scanner(System.in);
-      System.out.print("Usuario: ");
+      System.out.println("Usuario: ");
       String nomeUsuario = leia.next();
-      
-      Usuario usuarioLogin = new Usuario(nomeUsuario);
-      GerenciadorDeTarefas gerenciadorDeTarefas = new GerenciadorDeTarefas(usuarioLogin);
+      Usuario usuarioLogando = new Usuario(nomeUsuario);
+     
+      GerenciadorDeTarefas gerenciadorDeTarefas = new GerenciadorDeTarefas(usuarioLogando);
+      gerenciadorDeTarefas.verificarUsuario();
       while(true){
          System.out.println("\nOpcoes: ");
          System.out.println("1 - Criar nova tarefa");

@@ -19,6 +19,16 @@ public class Tarefa{
       this.idTarefa = UUID.randomUUID();
    }
    
+   public Tarefa(int indice, String titulo, String descricao, LocalDateTime dataCriacao,  boolean status, UUID idTarefa){
+      this.indice = indice;
+      this.titulo = titulo;
+      this.descricao = descricao;
+      this.dataCriacao = dataCriacao;
+      //this.dataConclusao = dataConclusao;
+      this.status = status;
+      this.idTarefa = UUID.randomUUID();
+   }
+   
    public int getIndice(){
       return indice;
    }
@@ -104,5 +114,17 @@ public class Tarefa{
             + this.status + ";"
             + this.idTarefa;
       return atributosFormatados;
+   }
+   
+   public static Tarefa formatarParaList(String linha) {
+      String[] atributos = linha.split(";");
+      int indice = Integer.parseInt(atributos[0]);
+      String titulo = atributos[1];
+      String descricao = atributos[2];
+      LocalDateTime dataCriacao = LocalDateTime.parse(atributos[3]);
+      //LocalDateTime dataConclusao = LocalDateTime.parse(atributos[3]);
+      boolean status = Boolean.parseBoolean(atributos[4]);
+      UUID idTarefa = UUID.fromString(atributos[5]);
+      return new Tarefa(indice, titulo, descricao, dataCriacao, status, idTarefa);
    }
 }
