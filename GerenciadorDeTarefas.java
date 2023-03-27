@@ -3,26 +3,28 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class GerenciadorDeTarefas{
-   private List<Tarefa> tarefasPendentes = new ArrayList<>();
-   private List<Tarefa> tarefasConcluidas = new ArrayList<>();
+   private List<Tarefa> listaDeTarefas = new ArrayList<>();
+   private Usuario usuarioLogado;
    
-   public List<Tarefa> getTarefasPendentes(){
-      return tarefasPendentes;
+   public List<Tarefa> getListaDeTarefas(){
+      return listaDeTarefas;
    }
-   public void setTarefasPendentes(List<Tarefa> tarefasPendentes){
-      this.tarefasPendentes = tarefasPendentes;
+   public void setListaDeTarefas(List<Tarefa> listaDeTarefas){
+      this.listaDeTarefas = listaDeTarefas;
    }
-   
-   public List<Tarefa> getTarefasConcluidas(){
-      return tarefasConcluidas;
-   }
-   
-   public void setTarefasConluidas(List<Tarefa> tarefasConcluidas){
-      this.tarefasConcluidas = tarefasConcluidas;
-   }
-    /*GerenciadorDeTarefas(){
 
-    }*/
+    GerenciadorDeTarefas(Usuario usuario){
+      //TODO
+    }
+    
+   public void gerarIndiceTarefa(Tarefa tarefa){
+      if(this.listaDeTarefas.size() == 0){
+         tarefa.setIndice(1);
+      }else{
+         Tarefa ultimaTarefaAdicionada = this.listaDeTarefas.get(listaDeTarefas.size() - 1);
+         tarefa.setIndice(ultimaTarefaAdicionada.getIndice() + 1);
+      }
+   }
 
    public void adicionarTarefa(){
       Scanner leia = new Scanner(System.in);
@@ -33,37 +35,30 @@ public class GerenciadorDeTarefas{
       LocalDateTime dataCriacaoTarefa = LocalDateTime.now();
       
       Tarefa novaTarefa = new Tarefa(tituloTarefa, descricaoTarefa, dataCriacaoTarefa);
-      this.tarefasPendentes.add(novaTarefa);
-      GerenciadorDeArquivos.adicionarAoArquivo(novaTarefa, "tarefas.jdm");
+      gerarIndiceTarefa(novaTarefa);
+      this.listaDeTarefas.add(novaTarefa);
+      GerenciadorDeArquivos.atualizarArquivo(listaDeTarefas, "tarefas.jdm");
    }
    
    public void concluirTarefa(){
-      exibirTarefasPendentes();
+      exibirTarefas(false);
       Scanner leia = new Scanner(System.in);
       System.out.println("Qual tarefa deseja concluir?");
-      int tarefaEscolhida = (leia.nextInt() - 1);
+      int indiceTarefaEscolhida = (leia.nextInt() - 1);
       
-      Tarefa novaTarefaConcluida = this.tarefasPendentes.get(tarefaEscolhida);
+      Tarefa novaTarefaConcluida = this.listaDeTarefas.get(indiceTarefaEscolhida);
       novaTarefaConcluida.setStatus(true);
       //novaTarefaConcluida.setDataConclusao(LocalDateTime.now());
-      this.tarefasConcluidas.add(novaTarefaConcluida);
-      this.tarefasPendentes.remove(tarefaEscolhida);
-      GerenciadorDeArquivos.atualizarArquivo(tarefasPendentes, tarefasConcluidas, "tarefas.jdm");
+      this.listaDeTarefas.set(indiceTarefaEscolhida, novaTarefaConcluida);
+      GerenciadorDeArquivos.atualizarArquivo(listaDeTarefas, "tarefas.jdm");
    }
    
-   public void exibirTarefas(List<Tarefa> listaDeTarefas){
-      for(Tarefa dadosDaTarefa : listaDeTarefas){
-         System.out.println(dadosDaTarefa);
+   public void exibirTarefas(boolean teste){
+      for(Tarefa tarefa : this.listaDeTarefas){
+         if(tarefa.getStatus() == teste){
+            System.out.println("Lista de tarefas: ");
+            System.out.println(tarefa);
+         }
       }
-   }
-   
-   public void exibirTarefasPendentes(){
-      System.out.println("Lista de tarefas pendentes: ");
-      exibirTarefas(this.tarefasPendentes);
-   }
-
-   public void exibirTarefasConcluidas(){
-      System.out.println("Lista de tarefas concluidas: ");
-      exibirTarefas(this.tarefasConcluidas);
    }
 }

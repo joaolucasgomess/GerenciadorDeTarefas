@@ -3,6 +3,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Tarefa{
+   private int indice;
    private String titulo;
    private String descricao;
    private LocalDateTime dataCriacao;
@@ -18,13 +19,12 @@ public class Tarefa{
       this.idTarefa = UUID.randomUUID();
    }
    
-   public Tarefa(String titulo, String descricao, LocalDateTime dataCriacao,  boolean status, UUID idTarefa){
-      this.titulo = titulo;
-      this.descricao = descricao;
-      this.dataCriacao = dataCriacao;
-      //this.dataConclusao = dataConclusao;
-      this.status = false;
-      this.idTarefa = UUID.randomUUID();
+   public int getIndice(){
+      return indice;
+   }
+   
+   public void setIndice(int indice){
+      this.indice = indice;
    }
 
    public String getTitulo(){
@@ -70,20 +70,18 @@ public class Tarefa{
    public UUID getIdTarefa(){
       return idTarefa;
    }
-   
-   public void setIdTarefa(UUID idTarefa){
-      this.idTarefa = idTarefa;
-   } 
 
 @Override
    public String toString(){
       if(this.dataCriacao != null){
-         return("\nTarefa: " + this.titulo
+         return("\nCodigo: " + this.indice
+            + "\nTarefa: " + this.titulo
             + "\nDescricao: "+ this.descricao
             + "\nData de Criacao: " + formatarDataEHora(this.dataCriacao)
          );
       }else{
-         return("\nTarefa: " + this.titulo
+         return("\nCodigo: " + this.indice
+            + "\nTarefa: " + this.titulo
             + "\nDescricao: " + this.descricao
             + "\nData de Criacao: " + formatarDataEHora(this.dataCriacao)
             /*+ "\nData de Conclusao: " + formatarDataEHora(this.dataConclusao)*/
@@ -98,7 +96,8 @@ public class Tarefa{
    }
    
    public String formatarAtributosParaArquivo(){
-      String atributosFormatados = this.titulo + ";"
+      String atributosFormatados = this.indice + ";"
+            + this.titulo + ";"
             + this.descricao + ";"
             + this.dataCriacao + ";"
             /*+ this.dataConclusao + ";"*/
@@ -106,26 +105,4 @@ public class Tarefa{
             + this.idTarefa;
       return atributosFormatados;
    }
-
-   public static Tarefa parseLinhaDoArquivo(String linha) {
-      String[] atributos = linha.split(";");
-      String titulo = atributos[0];
-      String descricao = atributos[1];
-      LocalDateTime dataCriacao = LocalDateTime.parse(atributos[2]);
-      //LocalDateTime dataConclusao = LocalDateTime.parse(atributos[3]);
-      boolean status = Boolean.parseBoolean(atributos[3]);
-      UUID idTarefa = UUID.fromString(atributos[4]);
-      return new Tarefa(titulo, descricao, dataCriacao, status, idTarefa);
-      /*, dataConclusao*/
-   }
 }
-   /*public String arrayAtributos(){
-      String dataCriacaoString = dataCriacao.toString();
-      String dataConclusaoString = dataConclusao.toString();
-      String statusString = String.valueOf(this.status);
-      String idTarefaString = idTarefa.toString();
-      
-      String arrayAtributos = {this.titulo, this.descricao, dataCriacaoString, dataConclusaoString, statusString, idTarefaString};
-      
-      return arrayAtributos;
-   }*/
