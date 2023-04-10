@@ -67,7 +67,7 @@ public class GerenciadorDeTarefas{
    public void concluirTarefa(){
       exibirTarefas(false);
       Scanner leia = new Scanner(System.in);
-      System.out.println("Qual tarefa deseja concluir?");
+      System.out.println("\nQual tarefa deseja concluir?");
       int indiceTarefaEscolhida = (leia.nextInt() - 1);
       
       Tarefa novaTarefaConcluida = this.listaDeTarefas.get(indiceTarefaEscolhida);

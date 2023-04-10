@@ -34,8 +34,8 @@ public class Main{
                gerenciadorDeTarefas.exibirTarefas(true);
                break;              
                
-            /*default:
-               System.out.println("Opção invalida, escolha outra.");*/
+            default:
+               System.out.println("Opcao invalida, escolha outra.");
          }
       }
    }
