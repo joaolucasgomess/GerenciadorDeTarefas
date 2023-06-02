@@ -15,6 +15,8 @@ public class Main{
          System.out.println("2 - Concluir tarefa");
          System.out.println("3 - Exibir tarefas pendentes");
          System.out.println("4 - Exibir tarefas concluidas");
+         System.out.println("5 - Cadastrar categoria");
+         System.out.println("6 - Sair do sistema");
          int opcao = leia.nextInt();
          
          switch (opcao){
@@ -32,8 +34,16 @@ public class Main{
                
             case 4:
                gerenciadorDeTarefas.exibirTarefas(true);
-               break;              
+               break;
                
+            case 5: 
+               gerenciadorDeTarefas.cadastrarCategoria();
+               break;
+               
+            case 6:
+                System.exit(0);
+                break;
+                        
             default:
                System.out.println("Opcao invalida, escolha outra.");
          }

@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Usuario{
+public class Usuario implements IFormatador{
 
     private String nome;
     private UUID idUsuario;
@@ -20,6 +20,7 @@ public class Usuario{
  
   }
   
+
   public static Usuario formatarParaList(String linha){
       String[] atributos = linha.split(";");
       String nome = atributos[0];
@@ -27,6 +28,7 @@ public class Usuario{
       return new Usuario(nome, idUsuario);
   }
   
+  @Override
    public String formatarAtributosParaArquivo(){
       String atributosFormatados = this.nome + ";"
             + this.idUsuario;

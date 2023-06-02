@@ -2,7 +2,7 @@ import java.util.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Tarefa{
+public class Tarefa implements IFormatador{
    private int indice;
    private String titulo;
    private String descricao;
@@ -10,6 +10,7 @@ public class Tarefa{
    //private LocalDateTime dataConclusao;
    private boolean status;
    private UUID idTarefa;
+   private Categoria categoria;
    
    public Tarefa(String titulo, String descricao, LocalDateTime dataCriacao){
       this.titulo = titulo;
@@ -80,6 +81,14 @@ public class Tarefa{
    public UUID getIdTarefa(){
       return idTarefa;
    }
+   
+   public Categoria getCategoria(){
+      return categoria;
+   }
+   
+   public void setCategoria(Categoria categoria){
+      this.categoria = categoria;
+   }
 
 @Override
    public String toString(){
@@ -95,6 +104,7 @@ public class Tarefa{
             + "\nDescricao: " + this.descricao
             + "\nData de Criacao: " + formatarDataEHora(this.dataCriacao)
             /*+ "\nData de Conclusao: " + formatarDataEHora(this.dataConclusao)*/
+            /*+ "\nCategoria: " + this.categoria.getNome()*/
          );
       }
    }
@@ -104,7 +114,7 @@ public class Tarefa{
       String dataFormatada = formatacao.format(data);
       return dataFormatada;
    }
-   
+   @Override
    public String formatarAtributosParaArquivo(){
       String atributosFormatados = this.indice + ";"
             + this.titulo + ";"
@@ -112,7 +122,8 @@ public class Tarefa{
             + this.dataCriacao + ";"
             /*+ this.dataConclusao + ";"*/
             + this.status + ";"
-            + this.idTarefa;
+            + this.idTarefa + ";"
+            /*+ this.categoria.getIdCategoria()*/;
       return atributosFormatados;
    }
    
@@ -125,6 +136,7 @@ public class Tarefa{
       //LocalDateTime dataConclusao = LocalDateTime.parse(atributos[3]);
       boolean status = Boolean.parseBoolean(atributos[4]);
       UUID idTarefa = UUID.fromString(atributos[5]);
+      //UUID idCategoria = UUID.fromString(atributos[6]);
       return new Tarefa(indice, titulo, descricao, dataCriacao, status, idTarefa);
    }
 }
