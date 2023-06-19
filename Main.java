@@ -1,20 +1,22 @@
 import java.util.*;
-import java.lang.*;
 
 public class Main{
    public static void main (String[] args){
       Scanner leia = new Scanner(System.in);
-      System.out.print("Usuario: ");
+      System.out.println("Usuario: ");
       String nomeUsuario = leia.next();
-      
-      Usuario usuarioLogin = new Usuario(nomeUsuario);
-      GerenciadorDeTarefas gerenciadorDeTarefas = new GerenciadorDeTarefas(usuarioLogin);
+      Usuario usuarioLogando = new Usuario(nomeUsuario);
+     
+      GerenciadorDeTarefas gerenciadorDeTarefas = new GerenciadorDeTarefas(usuarioLogando);
+      gerenciadorDeTarefas.verificarUsuario();
       while(true){
          System.out.println("\nOpcoes: ");
          System.out.println("1 - Criar nova tarefa");
          System.out.println("2 - Concluir tarefa");
          System.out.println("3 - Exibir tarefas pendentes");
          System.out.println("4 - Exibir tarefas concluidas");
+         System.out.println("5 - Cadastrar categoria");
+         System.out.println("6 - Sair do sistema");
          int opcao = leia.nextInt();
          
          switch (opcao){
@@ -32,10 +34,14 @@ public class Main{
                
             case 4:
                gerenciadorDeTarefas.exibirTarefas(true);
-               break;              
+               break;
                
-            /*default:
-               System.out.println("Opção invalida, escolha outra.");*/
+            case 5: 
+               System.exit(0);
+               break;
+               
+            default:
+               System.out.println("Opcao invalida, escolha outra.");
          }
       }
    }
