@@ -12,12 +12,13 @@ public class Tarefa implements IFormatador{
    private UUID idTarefa;
    private String categoria;
    
-   public Tarefa(String titulo, String descricao, LocalDateTime dataCriacao){
+   public Tarefa(String titulo, String descricao, LocalDateTime dataCriacao, String categoria){
       this.titulo = titulo;
       this.descricao = descricao;
       this.dataCriacao = dataCriacao;
       this.status = false;
       this.idTarefa = UUID.randomUUID();
+      this.categoria = categoria;
    }
    
    public Tarefa(int indice, String titulo, String descricao, LocalDateTime dataCriacao,  boolean status, UUID idTarefa, String categoria){
@@ -29,6 +30,16 @@ public class Tarefa implements IFormatador{
       this.status = status;
       this.idTarefa = UUID.randomUUID();
       this.categoria = categoria;
+   }
+   
+   public Tarefa(int indice, String titulo, String descricao, LocalDateTime dataCriacao,  boolean status, UUID idTarefa){
+      this.indice = indice;
+      this.titulo = titulo;
+      this.descricao = descricao;
+      this.dataCriacao = dataCriacao;
+      //this.dataConclusao = dataConclusao;
+      this.status = status;
+      this.idTarefa = UUID.randomUUID();
    }
    
    public int getIndice(){
@@ -137,7 +148,11 @@ public class Tarefa implements IFormatador{
       //LocalDateTime dataConclusao = LocalDateTime.parse(atributos[3]);
       boolean status = Boolean.parseBoolean(atributos[4]);
       UUID idTarefa = UUID.fromString(atributos[5]);
-      String categoria = atributos[6];
-      return new Tarefa(indice, titulo, descricao, dataCriacao, status, idTarefa, categoria);
+      if(atributos.length > 6){
+         String categoria = atributos[6];
+         return new Tarefa(indice, titulo, descricao, dataCriacao, status, idTarefa, categoria);
+      }else{
+         return new Tarefa(indice, titulo, descricao, dataCriacao, status, idTarefa);
+      }
    }
 }

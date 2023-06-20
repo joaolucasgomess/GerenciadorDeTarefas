@@ -33,8 +33,13 @@ public class GerenciadorDeTarefas{
       for(Usuario usuario : this.listaDeUsuarios){
          if(usuario.getNome().equals(usuarioLogado.getNome())){
             usuarioExiste = true;
-            listaDeTarefas = GerenciadorDeArquivos.carregarDoArquivoTarefa(listaDeTarefas, "Usuarios\\Tarefas\\" + usuarioLogado.getNome() + ".jdm");
-            break;
+            if(usuario.getSenha().equals(usuarioLogado.getSenha())){
+               listaDeTarefas = GerenciadorDeArquivos.carregarDoArquivoTarefa(listaDeTarefas, "Usuarios\\Tarefas\\" + usuarioLogado.getNome() + ".jdm");
+               break;  
+            }else{
+               System.out.println("Senha incorreta!");
+               break;
+            }
          }
       }if(!usuarioExiste){
          listaDeUsuarios.add(usuarioLogado);
@@ -58,23 +63,30 @@ public class GerenciadorDeTarefas{
       System.out.println("Digite a descricao de sua nova tarefa: ");
       String descricaoTarefa = leia.nextLine();
       LocalDateTime dataCriacaoTarefa = LocalDateTime.now();
+      String categoria = adicionarCategoria();
       
-      Tarefa novaTarefa = new Tarefa(tituloTarefa, descricaoTarefa, dataCriacaoTarefa);
+      Tarefa novaTarefa = new Tarefa(tituloTarefa, descricaoTarefa, dataCriacaoTarefa, categoria);
       gerarIndiceTarefa(novaTarefa);
       this.listaDeTarefas.add(novaTarefa);
       GerenciadorDeArquivos.atualizarArquivo(listaDeTarefas, "Usuarios\\Tarefas\\" + usuarioLogado.getNome() + ".jdm");
-      adicionarCategoria(novaTarefa);
    }
    
-   public void adicionarCategoria(Tarefa novaTarefa){
+   public String adicionarCategoria(){
       System.out.println("Deseja adicionar a tarefa a uma categoria?");
       System.out.println("1 - Sim // 2 - Nao");
       Scanner leia = new Scanner(System.in);
       int resposta = leia.nextInt();
-      System.out.println("Digite o nome da categoria: ");
-      String novaCategoria = leia.nextLine();
-      novaTarefa.setCategoria(novaCategoria);
-      
+      if(resposta == 1){
+            System.out.println("Digite o nome da categoria: ");
+            String novaCategoria = leia.next();
+            if(novaCategoria != null){
+               return novaCategoria;
+            }else{
+               return "sem categoria";
+            }
+      }else{
+         return "sem categoria";
+      }           
    }
    
    public void concluirTarefa(){

@@ -5,7 +5,9 @@ public class Main{
       Scanner leia = new Scanner(System.in);
       System.out.println("Usuario: ");
       String nomeUsuario = leia.next();
-      Usuario usuarioLogando = new Usuario(nomeUsuario);
+      System.out.println("Senha: ");
+      String senhaUsuario = leia.next();
+      Usuario usuarioLogando = new Usuario(nomeUsuario, senhaUsuario);
      
       GerenciadorDeTarefas gerenciadorDeTarefas = new GerenciadorDeTarefas(usuarioLogando);
       gerenciadorDeTarefas.verificarUsuario();

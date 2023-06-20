@@ -6,8 +6,9 @@ public class Usuario implements IFormatador{
     private String senha;
     private UUID idUsuario;
 
-    public Usuario(String nome){
+    public Usuario(String nome, String senha){
         this.nome = nome;
+        this.senha = senha;
         this.idUsuario = UUID.randomUUID();
   }
   
