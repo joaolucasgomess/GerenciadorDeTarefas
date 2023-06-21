@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 public class GerenciadorDeTarefas{
    private List<Tarefa> listaDeTarefas = new ArrayList<>();
    private List<Usuario> listaDeUsuarios = new ArrayList<>();
-   private List<Categoria> listaCategorias = new ArrayList<>();
    private Usuario usuarioLogado;
    
    public List<Tarefa> getListaDeTarefas(){
@@ -23,21 +22,10 @@ public class GerenciadorDeTarefas{
    public void setListaDeUsuarios(List<Usuario> listaDeUsuarios){
       this.listaDeUsuarios = listaDeUsuarios;
    }
-   
-   public List<Categoria> getListaCategorias(){
-      return listaCategorias;
-   }
-   
-   public void setListaCategorias(List<Categoria> listaCategorias){
-      this.listaCategorias = listaCategorias;
-   }
-
 
    GerenciadorDeTarefas(Usuario usuario){
       this.usuarioLogado = usuario;
       listaDeUsuarios = GerenciadorDeArquivos.carregarDoArquivoUsuario(listaDeUsuarios, "Usuarios\\usuariosCadastrados.jdm");
-      listaCategorias = GerenciadorDeArquivos.carregarDoArquivoCategorias(listaCategorias, "Usuarios\\Categorias.jdm");
-      
    }
    
    public void verificarUsuario(){
@@ -45,8 +33,14 @@ public class GerenciadorDeTarefas{
       for(Usuario usuario : this.listaDeUsuarios){
          if(usuario.getNome().equals(usuarioLogado.getNome())){
             usuarioExiste = true;
-            listaDeTarefas = GerenciadorDeArquivos.carregarDoArquivoTarefa(listaDeTarefas, "Usuarios\\Tarefas\\" + usuarioLogado.getNome() + ".jdm");
-            break;
+            if(usuario.getSenha().equals(usuarioLogado.getSenha())){
+               listaDeTarefas = GerenciadorDeArquivos.carregarDoArquivoTarefa(listaDeTarefas, "Usuarios\\Tarefas\\" + usuarioLogado.getNome() + ".jdm");
+               break;
+            }else{
+               System.out.println("Senha incorreta!");
+               System.exit(0);
+                break; 
+            }
          }
       }if(!usuarioExiste){
          listaDeUsuarios.add(usuarioLogado);
@@ -70,41 +64,30 @@ public class GerenciadorDeTarefas{
       System.out.println("Digite a descricao de sua nova tarefa: ");
       String descricaoTarefa = leia.nextLine();
       LocalDateTime dataCriacaoTarefa = LocalDateTime.now();
+      String categoria = adicionarCategoria();
       
-      Tarefa novaTarefa = new Tarefa(tituloTarefa, descricaoTarefa, dataCriacaoTarefa);
+      Tarefa novaTarefa = new Tarefa(tituloTarefa, descricaoTarefa, dataCriacaoTarefa, categoria);
       gerarIndiceTarefa(novaTarefa);
       this.listaDeTarefas.add(novaTarefa);
       GerenciadorDeArquivos.atualizarArquivo(listaDeTarefas, "Usuarios\\Tarefas\\" + usuarioLogado.getNome() + ".jdm");
-      adicionarCategoria(novaTarefa);
    }
    
-   public void exibirCategorias(){
-      System.out.println("Categorias: ");
-      int count = 1;
-      for(Categoria categoria : this.listaCategorias){
-         System.out.println(count + " - " + categoria);
-         count++;
-      }
-   }
-   
-   public void adicionarCategoria(Tarefa novaTarefa){
+   public String adicionarCategoria(){
       System.out.println("Deseja adicionar a tarefa a uma categoria?");
       System.out.println("1 - Sim // 2 - Nao");
       Scanner leia = new Scanner(System.in);
       int resposta = leia.nextInt();
-      
-      switch(resposta){
-      
-         case 1:
-            exibirCategorias();
-            System.out.println("Escolha uma categoria: ");
-            int categoriaSelecionada = (leia.nextInt() - 1);
-            novaTarefa.setCategoria(listaCategorias.get(categoriaSelecionada));
-            break;
-         
-         case 2:
-            break;
-      }
+      if(resposta == 1){
+            System.out.println("Digite o nome da categoria: ");
+            String novaCategoria = leia.next();
+            if(novaCategoria != null){
+               return novaCategoria;
+            }else{
+               return "sem categoria";
+            }
+      }else{
+         return "sem categoria";
+      }           
    }
    
    public void concluirTarefa(){
@@ -149,12 +132,17 @@ public class GerenciadorDeTarefas{
       }
    }
    
-   public void cadastrarCategoria(){
-      System.out.print("Digite o nome da nova categoria: ");
+   public void buscar(){
+      System.out.print("Digite a palavra que deseja buscar: ");
       Scanner leia = new Scanner(System.in);
-      String nomeCategoria = leia.nextLine();
-      Categoria novaCategoria = new Categoria(nomeCategoria);
-      listaCategorias.add(novaCategoria);
-      GerenciadorDeArquivos.atualizarArquivo(listaCategorias, "Usuarios\\Categorias.jdm");
+      String busca = leia.next();
+      
+      for(Tarefa  tarefa : this.listaDeTarefas){
+         if(tarefa.getTitulo().contains(busca) || tarefa.getDescricao().contains(busca) || tarefa.getCategoria().contains(busca)){
+            System.out.println(tarefa);
+         }else{
+            System.out.print("Nada foi encontrado!");
+         }
+      }
    }
 }

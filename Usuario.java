@@ -3,15 +3,18 @@ import java.util.*;
 public class Usuario implements IFormatador{
 
     private String nome;
+    private String senha;
     private UUID idUsuario;
 
-    public Usuario(String nome){
+    public Usuario(String nome, String senha){
         this.nome = nome;
+        this.senha = senha;
         this.idUsuario = UUID.randomUUID();
   }
   
-   public Usuario(String nome, UUID idUsuario){
+   public Usuario(String nome, String senha, UUID idUsuario){
       this.nome = nome;
+      this.senha = senha;
       this.idUsuario = idUsuario;
   }
 
@@ -20,17 +23,26 @@ public class Usuario implements IFormatador{
  
   }
   
+  public String getSenha(){
+      return senha;  
+  }
+  
+  public void setSenha(String senha){
+      this.senha = senha;
+  }
 
   public static Usuario formatarParaList(String linha){
       String[] atributos = linha.split(";");
       String nome = atributos[0];
-      UUID idUsuario = UUID.fromString(atributos[1]);
-      return new Usuario(nome, idUsuario);
+      String senha = atributos[1];
+      UUID idUsuario = UUID.fromString(atributos[2]);
+      return new Usuario(nome, senha, idUsuario);
   }
   
   @Override
    public String formatarAtributosParaArquivo(){
       String atributosFormatados = this.nome + ";"
+            + this.senha + ";"
             + this.idUsuario;
       return atributosFormatados;
    }

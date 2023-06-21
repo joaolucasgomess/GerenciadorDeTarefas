@@ -10,14 +10,26 @@ public class Tarefa implements IFormatador{
    //private LocalDateTime dataConclusao;
    private boolean status;
    private UUID idTarefa;
-   private Categoria categoria;
+   private String categoria;
    
-   public Tarefa(String titulo, String descricao, LocalDateTime dataCriacao){
+   public Tarefa(String titulo, String descricao, LocalDateTime dataCriacao, String categoria){
       this.titulo = titulo;
       this.descricao = descricao;
       this.dataCriacao = dataCriacao;
       this.status = false;
       this.idTarefa = UUID.randomUUID();
+      this.categoria = categoria;
+   }
+   
+   public Tarefa(int indice, String titulo, String descricao, LocalDateTime dataCriacao,  boolean status, UUID idTarefa, String categoria){
+      this.indice = indice;
+      this.titulo = titulo;
+      this.descricao = descricao;
+      this.dataCriacao = dataCriacao;
+      //this.dataConclusao = dataConclusao;
+      this.status = status;
+      this.idTarefa = UUID.randomUUID();
+      this.categoria = categoria;
    }
    
    public Tarefa(int indice, String titulo, String descricao, LocalDateTime dataCriacao,  boolean status, UUID idTarefa){
@@ -82,11 +94,11 @@ public class Tarefa implements IFormatador{
       return idTarefa;
    }
    
-   public Categoria getCategoria(){
+   public String getCategoria(){
       return categoria;
    }
    
-   public void setCategoria(Categoria categoria){
+   public void setCategoria(String categoria){
       this.categoria = categoria;
    }
 
@@ -97,6 +109,7 @@ public class Tarefa implements IFormatador{
             + "\nTarefa: " + this.titulo
             + "\nDescricao: "+ this.descricao
             + "\nData de Criacao: " + formatarDataEHora(this.dataCriacao)
+            + "\nCategoria: " + this.getCategoria()
          );
       }else{
          return("\nCodigo: " + this.indice
@@ -104,7 +117,7 @@ public class Tarefa implements IFormatador{
             + "\nDescricao: " + this.descricao
             + "\nData de Criacao: " + formatarDataEHora(this.dataCriacao)
             /*+ "\nData de Conclusao: " + formatarDataEHora(this.dataConclusao)*/
-            /*+ "\nCategoria: " + this.categoria.getNome()*/
+            + "\nCategoria: " + this.getCategoria()
          );
       }
    }
@@ -123,7 +136,7 @@ public class Tarefa implements IFormatador{
             /*+ this.dataConclusao + ";"*/
             + this.status + ";"
             + this.idTarefa + ";"
-            /*+ this.categoria.getIdCategoria()*/;
+            + this.categoria;
       return atributosFormatados;
    }
    
@@ -136,7 +149,11 @@ public class Tarefa implements IFormatador{
       //LocalDateTime dataConclusao = LocalDateTime.parse(atributos[3]);
       boolean status = Boolean.parseBoolean(atributos[4]);
       UUID idTarefa = UUID.fromString(atributos[5]);
-      //UUID idCategoria = UUID.fromString(atributos[6]);
-      return new Tarefa(indice, titulo, descricao, dataCriacao, status, idTarefa);
+      if(atributos.length > 6){
+         String categoria = atributos[6];
+         return new Tarefa(indice, titulo, descricao, dataCriacao, status, idTarefa, categoria);
+      }else{
+         return new Tarefa(indice, titulo, descricao, dataCriacao, status, idTarefa);
+      }
    }
 }

@@ -55,21 +55,4 @@ public class GerenciadorDeArquivos{
       }
       return listaDeUsuarios;
    } 
-   
-   public static List<Categoria> carregarDoArquivoCategorias(List<Categoria> listaDeCategorias, String nomeDoArquivo){
-      try(
-         FileReader fr = new FileReader(nomeDoArquivo);
-         BufferedReader br = new BufferedReader(fr)
-      ){
-         String linha;
-         while((linha = br.readLine()) != null){
-            Categoria categoria = Categoria.formatarParaList(linha);
-            listaDeCategorias.add(categoria);
-         }
-      }catch(IOException e){
-         System.out.println("Ocorreu um erro ao tentar ler o conteudo do arquivo.");
-         e.printStackTrace();
-      }
-      return listaDeCategorias;
-   } 
 }
